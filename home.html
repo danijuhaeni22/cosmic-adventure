@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Space Explore - Home</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Google Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- Pakai CSS yang sama -->
+  <link rel="stylesheet" href="index.css" />
+</head>
+<body>
+  <div class="home-shell">
+    <div class="home-screen">
+      <!-- TOP BAR -->
+      <header class="home-top-bar">
+        <button class="home-icon-btn" type="button" aria-label="Menu">
+          <span class="home-icon-line"></span>
+          <span class="home-icon-line"></span>
+          <span class="home-icon-line"></span>
+        </button>
+
+        <button class="home-icon-btn home-icon-btn-round" type="button" aria-label="Profile">
+          <span class="home-dot"></span>
+        </button>
+      </header>
+
+      <main class="home-main">
+        <div class="home-heading">
+          <h1 class="home-title-main">Explore</h1>
+          <p class="home-subtitle-main">
+            Choose a planet and start your space journey.
+          </p>
+        </div>
+
+        <!-- CAROUSEL -->
+        <section class="home-carousel" aria-label="Planet carousel">
+          <button
+            class="home-nav home-nav--prev"
+            type="button"
+            aria-label="Previous planet"
+          >
+            ‹
+          </button>
+          <button
+            class="home-nav home-nav--next"
+            type="button"
+            aria-label="Next planet"
+          >
+            ›
+          </button>
+
+          <div class="home-carousel-track">
+            <!-- Slide 0 : Earth -->
+            <article class="home-slide" data-index="0">
+              <div class="home-planet-image">
+                <img src="assets/planet-blue.png" alt="Earth" />
+              </div>
+
+              <div class="home-planet-card">
+                <div class="home-planet-header">
+                  <div>
+                    <h2 class="home-planet-name">Earth</h2>
+                    <p class="home-planet-label">Planet 1</p>
+                  </div>
+                  <span class="home-planet-number">01</span>
+                </div>
+
+                <p class="home-planet-text">
+                  Our bright blue home, full of oceans, forests and life. Perfect
+                  for a warm-up before exploring deeper space.
+                </p>
+
+                <button class="home-planet-btn" type="button">
+                  →
+                </button>
+              </div>
+            </article>
+
+            <!-- Slide 1 : Moon -->
+            <article class="home-slide" data-index="1">
+              <div class="home-planet-image">
+                <img src="assets/planet-purple.png" alt="Moon" />
+              </div>
+
+              <div class="home-planet-card">
+                <div class="home-planet-header">
+                  <div>
+                    <h2 class="home-planet-name">Moon</h2>
+                    <p class="home-planet-label">Planet 2</p>
+                  </div>
+                  <span class="home-planet-number">02</span>
+                </div>
+
+                <p class="home-planet-text">
+                  Quiet, calm and full of craters. Enjoy the soft glow and jump
+                  higher with lower gravity.
+                </p>
+
+                <button class="home-planet-btn" type="button">
+                  →
+                </button>
+              </div>
+            </article>
+
+            <!-- Slide 2 : Sun -->
+            <article class="home-slide" data-index="2">
+              <div class="home-planet-image">
+                <img src="assets/sun.png" alt="Sun" />
+              </div>
+
+              <div class="home-planet-card">
+                <div class="home-planet-header">
+                  <div>
+                    <h2 class="home-planet-name">Sun</h2>
+                    <p class="home-planet-label">Star</p>
+                  </div>
+                  <span class="home-planet-number">03</span>
+                </div>
+
+                <p class="home-planet-text">
+                  A bright and cheerful star. Feel the warm light and power your
+                  next adventure.
+                </p>
+
+                <button class="home-planet-btn" type="button">
+                  →
+                </button>
+              </div>
+            </article>
+          </div>
+
+          <!-- DOT / AVATAR NAV -->
+          <div class="home-carousel-dots" aria-label="Select planet">
+            <button
+              class="home-dot-btn"
+              type="button"
+              data-index="0"
+              aria-label="Earth"
+            >
+              <img src="assets/planet-blue.png" alt="Earth" />
+            </button>
+            <button
+              class="home-dot-btn"
+              type="button"
+              data-index="1"
+              aria-label="Moon"
+            >
+              <img src="assets/planet-purple.png" alt="Moon" />
+            </button>
+            <button
+              class="home-dot-btn"
+              type="button"
+              data-index="2"
+              aria-label="Sun"
+            >
+              <img src="assets/sun.png" alt="Sun" />
+            </button>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <script src="home.js"></script>
+</body>
+</html>
