@@ -13,22 +13,35 @@
     rel="stylesheet"
   />
 
-  <!-- Pakai CSS yang sama -->
+  <!-- CSS utama -->
   <link rel="stylesheet" href="index.css" />
 </head>
-<body>
+<body class="home-body">
   <div class="home-shell">
     <div class="home-screen">
       <!-- TOP BAR -->
       <header class="home-top-bar">
         <button class="home-icon-btn" type="button" aria-label="Menu">
-          <span class="home-icon-line"></span>
-          <span class="home-icon-line"></span>
-          <span class="home-icon-line"></span>
+          <!-- Icon hamburger pakai SVG -->
+          <svg
+            class="home-icon-svg"
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+          >
+            <line x1="4" y1="6" x2="20" y2="6" />
+            <line x1="4" y1="12" x2="16" y2="12" />
+            <line x1="4" y1="18" x2="12" y2="18" />
+          </svg>
         </button>
 
-        <button class="home-icon-btn home-icon-btn-round" type="button" aria-label="Profile">
-          <span class="home-dot"></span>
+        <!-- tombol logout -->
+        <button
+          class="home-logout-btn"
+          type="button"
+          id="logoutButton"
+          aria-label="Logout"
+        >
+          LOGOUT
         </button>
       </header>
 
@@ -87,7 +100,7 @@
             <!-- Slide 1 : Moon -->
             <article class="home-slide" data-index="1">
               <div class="home-planet-image">
-                <img src="assets/planet-purple.png" alt="Moon" />
+                <img src="assets/moon.png" alt="Moon" />
               </div>
 
               <div class="home-planet-card">
@@ -135,6 +148,32 @@
                 </button>
               </div>
             </article>
+
+            <!-- Slide 3 : Mercury -->
+            <article class="home-slide" data-index="3">
+              <div class="home-planet-image">
+                <img src="assets/mercury.png" alt="Mercury" />
+              </div>
+
+              <div class="home-planet-card">
+                <div class="home-planet-header">
+                  <div>
+                    <h2 class="home-planet-name">Mercury</h2>
+                    <p class="home-planet-label">Planet 4</p>
+                  </div>
+                  <span class="home-planet-number">04</span>
+                </div>
+
+                <p class="home-planet-text">
+                  The smallest and fastest planet, racing close to the Sun with
+                  rocky craters and extreme temperatures.
+                </p>
+
+                <button class="home-planet-btn" type="button">
+                  →
+                </button>
+              </div>
+            </article>
           </div>
 
           <!-- DOT / AVATAR NAV -->
@@ -153,7 +192,7 @@
               data-index="1"
               aria-label="Moon"
             >
-              <img src="assets/planet-purple.png" alt="Moon" />
+              <img src="assets/moon.png" alt="Moon" />
             </button>
             <button
               class="home-dot-btn"
@@ -162,6 +201,14 @@
               aria-label="Sun"
             >
               <img src="assets/sun.png" alt="Sun" />
+            </button>
+            <button
+              class="home-dot-btn"
+              type="button"
+              data-index="3"
+              aria-label="Mercury"
+            >
+              <img src="assets/mercury.png" alt="Mercury" />
             </button>
           </div>
         </section>

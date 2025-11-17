@@ -39,7 +39,18 @@ loginForm.addEventListener("submit", (event) => {
     return;
   }
 
-  // clear error & redirect ke halaman home
+  // clear error
   loginError.textContent = "";
+
+  // simpan status login di localStorage
+  try {
+    localStorage.setItem("isLoggedIn", "true");
+    localStorage.setItem("loggedInEmail", email);
+  } catch (e) {
+    // kalau localStorage error, tetap lanjut redirect
+    console.warn("localStorage error:", e);
+  }
+
+  // redirect ke home
   window.location.href = "home.html";
 });
