@@ -411,7 +411,7 @@ body {
 }
 
 /* =========================
-   HOME PAGE - CAROUSEL LAYOUT (RESPONSIVE, SWIPE)
+   HOME PAGE - CAROUSEL
    ========================= */
 
 /* body khusus halaman home */
@@ -427,6 +427,7 @@ body {
   width: 100%;
   display: flex;
   justify-content: center;
+  overflow: visible;
 }
 
 /* kotak utama home */
@@ -441,7 +442,7 @@ body {
     radial-gradient(circle at 80% 100%, rgba(255, 255, 255, 0.08) 0, transparent 55%),
     linear-gradient(180deg, #0536a3 0%, #001b4f 55%, #000c2c 100%);
   box-shadow: 0 26px 60px rgba(0, 0, 0, 0.6);
-  overflow: hidden;
+  overflow: visible; /* PENTING: jangan clip planet yang naik-turun */
   color: #ffffff;
   min-height: 620px;
 }
@@ -523,20 +524,14 @@ body {
   cursor: pointer;
 }
 
-.home-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 999px;
-  background: #ffd447;
-}
-
-/* main layout: teks SELALU di atas carousel */
+/* heading */
 
 .home-main {
   display: flex;
   flex-direction: column;
   gap: 18px;
   margin-top: 4px;
+  overflow: visible;
 }
 
 .home-heading {
@@ -564,18 +559,20 @@ body {
   display: flex;
   flex-direction: column;
   align-items: stretch;
+  overflow: visible;
 }
 
-/* TRACK: scroll-snap horizontal */
+/* TRACK */
 
 .home-carousel-track {
   display: flex;
   align-items: stretch;
   overflow-x: auto;
+  overflow-y: visible;          /* planet boleh keluar ke atas/bawah */
   scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
   padding-bottom: 12px;
-  margin-inline: -8px; /* biar kartu bisa “keluar” dikit */
+  margin-inline: -8px;
 }
 
 /* sembunyikan scrollbar */
@@ -586,7 +583,7 @@ body {
   scrollbar-width: none;
 }
 
-/* SLIDE: default (hp) – 1 besar + kiri/kanan ngintip sedikit */
+/* SLIDE – efek naik turun */
 
 .home-slide {
   flex: 0 0 76%;
@@ -597,19 +594,23 @@ body {
   flex-direction: column;
   align-items: center;
   gap: 10px;
-  opacity: 0.8;
-  transform: scale(0.94);
+  opacity: 0.7;
+  transform: translateY(6px) scale(0.94);
   transition:
-    transform 0.3s ease,
-    opacity 0.3s ease;
+    transform 0.35s cubic-bezier(0.22, 0.61, 0.36, 1),
+    opacity 0.25s ease,
+    filter 0.25s ease;
+  filter: blur(0.2px);
+  overflow: visible;
 }
 
 .home-slide--active {
   opacity: 1;
-  transform: scale(1);
+  transform: translateY(-6px) scale(1.04); /* naik sedikit & lebih besar */
+  filter: blur(0);
 }
 
-/* planet image di atas kartu */
+/* planet image */
 
 .home-planet-image {
   margin-top: 4px;
@@ -620,21 +621,33 @@ body {
   width: 140px;
   height: 140px;
   object-fit: contain;
-  filter: drop-shadow(0 18px 40px rgba(0, 0, 0, 0.8));
   animation: floatSlow 6s ease-in-out infinite;
 }
 
-/* card di bawah planet */
+/* card */
 
 .home-planet-card {
   width: 100%;
   max-width: 280px;
-  padding: 16px 16px 18px;
+  padding: 16px 18px 20px;
   border-radius: 22px;
-  background: rgba(3, 12, 54, 0.88);
+
+  /* GLASSMORPHISM */
+  background: linear-gradient(
+    135deg,
+    rgba(3, 12, 54, 0.75),
+    rgba(3, 12, 54, 0.35)
+  );
+  border: 1px solid rgba(255, 255, 255, 0.12);
   backdrop-filter: blur(18px);
-  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.6);
+  -webkit-backdrop-filter: blur(18px);
+
+  /* biar isi teks tetap rapi */
+  display: flex;
+  flex-direction: column;
 }
+
+
 
 .home-planet-header {
   display: flex;
@@ -684,12 +697,10 @@ body {
   cursor: pointer;
 }
 
-/* nav arrow – default (hp & tablet) disembunyikan */
+/* nav arrow – disembunyikan di mobile/tablet */
 
 .home-nav {
   position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
   width: 32px;
   height: 32px;
   border-radius: 999px;
@@ -713,7 +724,7 @@ body {
   right: 8px;
 }
 
-/* dots / avatar di bawah */
+/* dots */
 
 .home-carousel-dots {
   margin-top: 18px;
@@ -776,7 +787,7 @@ body {
   }
 
   .home-slide {
-    flex: 0 0 68%; /* 3 konten masih kelihatan */
+    flex: 0 0 68%;
   }
 
   .home-planet-card {
@@ -790,12 +801,12 @@ body {
 }
 
 /* ==========
-   DESKTOP – FULLSCREEN & 3 CARD PENUH
+   DESKTOP – FULLSCREEN, 3 CARD PENUH, ARROW SIMETRIS
    ========== */
 
 @media (min-width: 1200px) {
   .home-body {
-    padding: 0; /* full screen di desktop */
+    padding: 0;
   }
 
   .home-shell {
@@ -808,7 +819,7 @@ body {
     min-height: 100vh;
     border-radius: 0;
     box-shadow: none;
-    padding: 32px 80px 40px;
+    padding: 48px 80px 40px;
   }
 
   .home-main {
@@ -826,43 +837,198 @@ body {
   }
 
   .home-carousel {
-    margin-top: 18px;
+    margin-top: 24px;
+    max-width: 1120px;
+    margin-inline: auto;   /* frame carousel di tengah layar */
+    padding: 0;            /* biar padding diatur oleh track saja */
+    position: relative;
+  }
+
+  .home-carousel-track {
+    margin-inline: 0;
+    padding-inline: 48px;  /* <--- jarak kiri/kanan antara card & frame */
+    gap: 24px;             /* jarak antar card */
+  }
+
+  /* 3 card penuh yang kelihatan */
+  .home-slide {
+    flex: 0 0 calc((100% - 2 * 24px) / 3); /* (width - 2*gap)/3 */
+    max-width: none;
+    margin: 0;
+  }
+
+  .home-planet-image img {
+    width: 200px;
+    height: 200px;
+  }
+
+  .home-planet-card {
+    max-width: 360px;
+    padding: 18px 20px 20px;
+  }
+
+  /* arrow simetris relatif ke frame carousel */
+  .home-nav {
+    display: flex;
+    width: 40px;
+    height: 40px;
+    font-size: 1.6rem;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .home-nav--prev {
+    left: 10px;   /* 10px dari sisi kiri frame */
+  }
+
+  .home-nav--next {
+    right: 10px;  /* 10px dari sisi kanan frame */
+  }
+}
+
+/* Efek naik-turun yang lebih halus khusus HP */
+@media (max-width: 767px) {
+  .home-slide {
+    /* sedikit turun & sedikit mengecil */
+    transform: translateY(2px) scale(0.97);
+  }
+
+  .home-slide--active {
+    /* naik dikit & sedikit lebih besar, tapi tidak sampai kepotong */
+    transform: translateY(-2px) scale(1.02);
+  }
+}
+
+
+
+/* ==========
+   TABLET
+   ========== */
+
+@media (min-width: 768px) {
+  .home-body {
+    padding: 40px 24px;
+  }
+
+  .home-screen {
+    max-width: 900px;
+    border-radius: 28px;
+    padding: 24px 32px 30px;
+    min-height: 520px;
+  }
+
+  .home-title-main {
+    font-size: 2.6rem;
   }
 
   .home-carousel-track {
     margin-inline: 0;
   }
 
-  /* 3 card tampil penuh, tidak terpotong */
   .home-slide {
-    flex: 0 0 30%;
-    max-width: 380px;
-  }
-
-  .home-planet-image img {
-    width: 210px;
-    height: 210px;
+    flex: 0 0 68%; /* 3 konten masih kelihatan */
   }
 
   .home-planet-card {
-    max-width: 420px;
-    padding: 18px 20px 20px;
+    max-width: 320px;
   }
 
-  /* panah kiri/kanan hanya muncul di DESKTOP
-     dan diposisikan DI LUAR area card (tidak tumpang tindih) */
+  .home-planet-image img {
+    width: 160px;
+    height: 160px;
+  }
+}
+
+/* ==========
+   DESKTOP – FULLSCREEN, CAROUSEL LEBIH LEBAR
+   ========== */
+
+@media (min-width: 1200px) {
+  .home-body {
+    padding: 0;
+  }
+
+  .home-shell {
+    justify-content: stretch;
+  }
+
+  .home-screen {
+    max-width: none;
+    width: 100%;
+    min-height: 100vh;
+    border-radius: 0;
+    box-shadow: none;
+    padding: 48px 80px 40px;
+  }
+
+  .home-main {
+    max-width: 1440px;      /* sebelumnya 1280 */
+    margin: 0 auto;
+  }
+
+  .home-title-main {
+    font-size: 3.1rem;
+    margin-bottom: 6px;
+  }
+
+  .home-subtitle-main {
+    font-size: 0.95rem;
+  }
+
+  .home-carousel {
+    margin-top: 24px;
+    max-width: 1400px;     /* lebar frame carousel */
+    margin-inline: auto;   /* di tengah layar */
+    padding: 0;            /* tanpa padding, biar edge-nya jelas */
+    position: relative;    /* acuan absolute untuk arrow */
+  }
+
+  .home-carousel-track {
+    margin-inline: 0;
+    padding-inline: 32px;  /* jarak kiri/kanan antara card & frame */
+    gap: 32px;             /* jarak antar card */
+  }
+
+  /* 3 card penuh */
+  .home-slide {
+    flex: 0 0 calc((100% - 2 * 32px) / 3);
+    max-width: none;
+    margin: 0;
+  }
+
+  .home-slide--active {
+    opacity: 1;
+    transform: translateY(-6px) scale(1.04);
+    filter: blur(0);
+  }
+
+  .home-planet-image img {
+    width: 220px;           /* planet ikut sedikit membesar */
+    height: 220px;
+  }
+
+  .home-planet-card {
+    max-width: 420px;       /* card lebih lebar */
+    padding: 18px 22px 22px;
+  }
+
+   /* arrow desktop */
   .home-nav {
     display: flex;
     width: 40px;
     height: 40px;
     font-size: 1.6rem;
+    top: 50%;
+    transform: translateY(-50%);
   }
 
+  /* taruh arrow DI LUAR frame carousel.
+     -48px = full 40px di luar + gap 8px */
   .home-nav--prev {
-    left: -32px;  /* di luar sisi kiri carousel */
+    left: -48px;
   }
 
   .home-nav--next {
-    right: -32px; /* di luar sisi kanan carousel */
+    right: -48px;
   }
 }
